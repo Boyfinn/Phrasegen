@@ -82,7 +82,7 @@ void GeneratePhrase(int words, FILE* file)
 
         if(i <words-1)  //Replace with delimiter char
         {
-            strcat(buffer, "_");
+            strcat(buffer, nArgs.delim);
             //https://stackoverflow.com/a/28462221/10035529
             //buffer[strcspn(buffer, "\n")] = '_';
         }

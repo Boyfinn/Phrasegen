@@ -9,6 +9,7 @@
 #define OPTIONAL_ARGS \
     OPTIONAL_STRING_ARG(seed, "RANDOM", "-s", "seed", "ASCII seed string.")\
     OPTIONAL_STRING_ARG(dict, "words_alpha.txt", "-a", "dictionary", "Text file containing words separated by newline.")\
+    OPTIONAL_STRING_ARG(delim, "_", "-d", "delimiter", "Character or string to be used as delimiter")\
     OPTIONAL_UINT_ARG(words, 4, "-n", "words", "Number of words to generate.")
 
 #define BOOLEAN_ARGS \
