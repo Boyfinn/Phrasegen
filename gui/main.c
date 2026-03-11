@@ -10,9 +10,6 @@ int main(int argc, char* argv[])
 
     //Ptr inits
     //TODO: make a macro handler thingy for all of these?
-    pGrid = GTK_WIDGET(gtk_builder_get_object(pBuilder,"grd_main"));
-    pNewPass = GTK_WIDGET(gtk_builder_get_object(pBuilder,"btn_test"));
-    pNewSeed = GTK_WIDGET(gtk_builder_get_object(pBuilder,"btn_newseed"));
     pOutputField = GTK_WIDGET(gtk_builder_get_object(pBuilder,"ent_password"));
 
     //for now
@@ -40,8 +37,12 @@ void on_newpass_click (){
     //printf("Click.\n");
 }
 
-void on_newseed_click ()
-{
+void on_newseed_click (){
     //for now, again...
     uSeed = time(NULL);
+    on_newpass_click();
+}
+
+void on_dict_set(){
+    //TODO
 }

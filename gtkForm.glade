@@ -2,16 +2,32 @@
 <!-- Generated with glade 3.40.0 -->
 <interface>
   <requires lib="gtk+" version="3.24"/>
+  <object class="GtkAdjustment" id="adj_words">
+    <property name="lower">3</property>
+    <property name="upper">16</property>
+    <property name="value">3</property>
+    <property name="step-increment">1</property>
+    <property name="page-increment">10</property>
+  </object>
+  <object class="GtkFileFilter" id="dict_filter">
+    <mime-types>
+      <mime-type>Text</mime-type>
+    </mime-types>
+    <patterns>
+      <pattern>*.txt</pattern>
+    </patterns>
+  </object>
   <object class="GtkWindow" id="frm_main">
     <property name="can-focus">False</property>
+    <property name="resizable">False</property>
     <child>
       <object class="GtkFixed" id="grd_main">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
         <child>
-          <object class="GtkButton" id="btn_newpass">
-            <property name="label" translatable="yes">New</property>
-            <property name="width-request">53</property>
+          <object class="GtkButton" id="btn_refresh">
+            <property name="label" translatable="yes">Refresh</property>
+            <property name="width-request">72</property>
             <property name="height-request">34</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
@@ -19,8 +35,8 @@
             <signal name="clicked" handler="on_newpass_click" swapped="no"/>
           </object>
           <packing>
-            <property name="x">296</property>
-            <property name="y">43</property>
+            <property name="x">276</property>
+            <property name="y">47</property>
           </packing>
         </child>
         <child>
@@ -30,26 +46,239 @@
             <property name="can-focus">True</property>
           </object>
           <packing>
-            <property name="x">10</property>
-            <property name="y">10</property>
+            <property name="x">8</property>
+            <property name="y">16</property>
           </packing>
         </child>
         <child>
-          <object class="GtkButton" id="btn_newseed">
-            <property name="label" translatable="yes">Update</property>
-            <property name="width-request">70</property>
-            <property name="height-request">34</property>
+          <object class="GtkFrame" id="frm_settings">
+            <property name="width-request">189</property>
+            <property name="height-request">195</property>
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="margin-start">8</property>
+            <property name="margin-end">8</property>
+            <property name="margin-bottom">8</property>
+            <property name="label-xalign">0</property>
+            <property name="shadow-type">in</property>
+            <child>
+              <object class="GtkFixed" id="grd_settings">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <child>
+                  <object class="GtkLabel" id="lb_settings_capital">
+                    <property name="width-request">64</property>
+                    <property name="height-request">32</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="margin-start">6</property>
+                    <property name="margin-top">4</property>
+                    <property name="label" translatable="yes">Uppercase</property>
+                    <property name="xalign">0</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkComboBoxText" id="com_settings_case">
+                    <property name="width-request">128</property>
+                    <property name="height-request">32</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="margin-start">4</property>
+                    <property name="margin-end">4</property>
+                    <property name="margin-top">4</property>
+                    <property name="active">0</property>
+                    <items>
+                      <item id="0" translatable="yes">None</item>
+                      <item id="1" translatable="yes">First</item>
+                      <item id="2" translatable="yes">All</item>
+                    </items>
+                  </object>
+                  <packing>
+                    <property name="x">73</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="lb_settings_delimiter">
+                    <property name="width-request">64</property>
+                    <property name="height-request">32</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="margin-start">6</property>
+                    <property name="margin-top">4</property>
+                    <property name="label" translatable="yes">Delimiter</property>
+                    <property name="xalign">0</property>
+                  </object>
+                  <packing>
+                    <property name="y">32</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkComboBoxText" id="com_settings_delimiter">
+                    <property name="width-request">128</property>
+                    <property name="height-request">32</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="margin-start">4</property>
+                    <property name="margin-end">4</property>
+                    <property name="margin-top">4</property>
+                    <property name="active">0</property>
+                    <items>
+                      <item id="0" translatable="yes">Underscore</item>
+                      <item id="1" translatable="yes">Dash</item>
+                      <item id="2" translatable="yes">Space</item>
+                    </items>
+                  </object>
+                  <packing>
+                    <property name="x">73</property>
+                    <property name="y">32</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="lb_settings_dictionary">
+                    <property name="width-request">64</property>
+                    <property name="height-request">32</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="margin-start">6</property>
+                    <property name="margin-top">4</property>
+                    <property name="label" translatable="yes">Dictionary</property>
+                    <property name="xalign">0</property>
+                  </object>
+                  <packing>
+                    <property name="y">64</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkFileChooserButton" id="btn_settings_dictionary">
+                    <property name="width-request">128</property>
+                    <property name="height-request">32</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="margin-start">4</property>
+                    <property name="margin-end">4</property>
+                    <property name="margin-top">4</property>
+                    <property name="filter">dict_filter</property>
+                    <property name="title" translatable="yes"/>
+                    <signal name="file-set" handler="on_dict_set" swapped="no"/>
+                  </object>
+                  <packing>
+                    <property name="x">73</property>
+                    <property name="y">64</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="lb_settings_seed">
+                    <property name="width-request">64</property>
+                    <property name="height-request">32</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="margin-start">6</property>
+                    <property name="margin-top">4</property>
+                    <property name="label" translatable="yes">Seed</property>
+                    <property name="xalign">0</property>
+                  </object>
+                  <packing>
+                    <property name="y">100</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton" id="btn_settings_seed">
+                    <property name="label" translatable="yes">Regenerate</property>
+                    <property name="width-request">128</property>
+                    <property name="height-request">34</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="receives-default">True</property>
+                    <property name="margin-start">4</property>
+                    <property name="margin-end">4</property>
+                    <property name="margin-top">4</property>
+                    <signal name="clicked" handler="on_newseed_click" swapped="no"/>
+                  </object>
+                  <packing>
+                    <property name="x">73</property>
+                    <property name="y">98</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="lb_settings_wordcount">
+                    <property name="width-request">64</property>
+                    <property name="height-request">32</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="margin-start">6</property>
+                    <property name="margin-top">4</property>
+                    <property name="label" translatable="yes">Words</property>
+                    <property name="xalign">0</property>
+                  </object>
+                  <packing>
+                    <property name="y">133</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkSpinButton" id="spin_settings_wordcount">
+                    <property name="width-request">128</property>
+                    <property name="height-request">34</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="margin-start">4</property>
+                    <property name="margin-end">4</property>
+                    <property name="margin-top">4</property>
+                    <property name="input-purpose">number</property>
+                    <property name="adjustment">adj_words</property>
+                    <property name="snap-to-ticks">True</property>
+                    <property name="numeric">True</property>
+                  </object>
+                  <packing>
+                    <property name="x">73</property>
+                    <property name="y">132</property>
+                  </packing>
+                </child>
+              </object>
+            </child>
+            <child type="label">
+              <object class="GtkLabel" id="lb_frame_settings">
+                <property name="name">lb_settings</property>
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="label" translatable="yes">Settings</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="x">354</property>
+            <property name="y">8</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="btn_copy">
+            <property name="label" translatable="yes">Copy to clipboard</property>
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
-            <signal name="clicked" handler="on_newseed_click" swapped="no"/>
           </object>
           <packing>
-            <property name="x">278</property>
-            <property name="y">82</property>
+            <property name="x">8</property>
+            <property name="y">47</property>
           </packing>
         </child>
       </object>
     </child>
+  </object>
+  <object class="GtkListStore" id="lst_settings">
+    <columns>
+      <!-- column-name Case -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0" translatable="yes">None</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">First</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">All</col>
+      </row>
+    </data>
   </object>
 </interface>

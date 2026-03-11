@@ -14,9 +14,6 @@
 
 //TODO: DO a macro builder thingy or something for these
 GtkWidget   *pWindow;
-GtkWidget   *pGrid;
-GtkWidget   *pNewPass;
-GtkWidget   *pNewSeed;
 GtkWidget   *pOutputField;
 GtkBuilder  *pBuilder;
 
@@ -24,5 +21,6 @@ unsigned int uSeed;
 
 void on_newpass_click ();
 void on_newseed_click ();
+void on_dict_set();
 
 #endif
