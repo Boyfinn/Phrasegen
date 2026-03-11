@@ -31,7 +31,7 @@ void Uppercase(char *s){
 void ProcessWord(char *str, unsigned procMask){
   for(size_t i=0; i<sizeof(processors)/sizeof(processors[0]);i++)
     if(procMask &(1<<i))
-      processors[bit](str);
+      processors[i](str);
 }
 ```
 ## The whole GUI app
