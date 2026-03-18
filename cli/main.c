@@ -103,7 +103,7 @@ void GeneratePhrase(int words, FILE* file)
                 while(buffer[j])
                 {
                     buffer[j] = toupper(buffer[j]);
-
+                    j++;
                 }
                 break;
             }

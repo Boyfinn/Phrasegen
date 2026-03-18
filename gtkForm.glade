@@ -22,6 +22,7 @@
     <property name="resizable">False</property>
     <property name="default-width">256</property>
     <property name="default-height">192</property>
+    <signal name="realize" handler="on_formRealized" swapped="no"/>
     <child>
       <object class="GtkPaned" id="grd_main">
         <property name="visible">True</property>

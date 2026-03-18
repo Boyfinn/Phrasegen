@@ -29,6 +29,11 @@ int main(int argc, char* argv[])
     return 0;
 }
 
+void on_formRealized()
+{
+    on_propChanged();
+}
+
 void on_propChanged()
 {
     cCapital =  gtk_combo_box_get_active(GTK_COMBO_BOX(pCapital));     //cCapital is an unsigned char
