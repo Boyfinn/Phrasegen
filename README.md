@@ -38,3 +38,5 @@ Place the dictionary file into the same directory with your cli exectuable, and 
     * Min/Max number size
     * As prefix, suffix, or randomly inserted
 * Min/Max word length
+* Installer/Package (.deb, .rpm, etc...)
+    * Handle all the path stuff in installer
