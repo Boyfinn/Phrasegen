@@ -1,8 +1,7 @@
 #include "gtk/gtk.h"
 #include "gui.h"
 
-int main(int argc, char* argv[])
-{
+int main(int argc, char* argv[]) {
     gtk_init(&argc, &argv);
     pBuilder = gtk_builder_new_from_file("gtkForm.glade");
     pWindow = GTK_WIDGET(gtk_builder_get_object(pBuilder, "frm_main"));
@@ -29,13 +28,18 @@ int main(int argc, char* argv[])
     return 0;
 }
 
-void on_formRealized()
-{
+void on_formRealized() {
     on_propChanged();
 }
 
-void on_propChanged()
-{
+void on_copyClipboard() {
+    //TODO: implement please
+    GtkClipboard* clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
+    gtk_clipboard_set_text(clipboard, gtk_entry_get_text(GTK_ENTRY(pOutputField)),-1);
+    //printf("Todo...\n");
+}
+
+void on_propChanged() {
     cCapital =  gtk_combo_box_get_active(GTK_COMBO_BOX(pCapital));     //cCapital is an unsigned char
     cDelim =    pDelims[gtk_combo_box_get_active(GTK_COMBO_BOX(pDelim))];
     sDict =     getDictPath(sDict);
@@ -44,25 +48,24 @@ void on_propChanged()
     buildArgs();            //This refreshes the output when anything changes
 }
 
-void on_newSeed()   //It's a REAL shame this needs to be handled separately.
-{
+void on_newSeed() {   //It's a REAL shame this needs to be handled separately.
     uSeed = time(NULL);
     on_propChanged();
 }
 
-void buildArgs()
-{
+void buildArgs() {
     //Ensure everything has a default value before building PLEASE
     //debug stuff
     /*if(!sDict)
         sDict = DEFAULTDICTIONARY;*/    //already fixed in entry
+    /*
     printf("----ARGS----\n");
     printf("cCapital: %i\n", cCapital);
     printf("cDelim:   %s\n", cDelim);
     printf("sDict:    %s\n", sDict);
     printf("uSeed:    %u\n", uSeed);
     printf("cWords:   %i\n", cWords);
-
+    */
     //special cases:
     GPtrArray *argv = g_ptr_array_new_with_free_func(g_free);   //Didn't know this existed'
     g_ptr_array_add(argv, g_strdup("comtool"));
@@ -92,10 +95,10 @@ for (int i = 0; paramArgs[i].pFlag != NULL; i++) {
 }
 
 void genPassword(gchar **argv) {
-/*
-        for (int i = 0; argv[i] != NULL; i++)
-        printf("argv[%d]: %s\n", i, argv[i]);
-*/
+    /*
+    for (int i = 0; argv[i] != NULL; i++)
+    printf("argv[%d]: %s\n", i, argv[i]);
+    */
     gchar * output =        NULL;
     gchar * error =         NULL;
     gint    exitStatus =    0;

@@ -59,6 +59,7 @@ GtkWidget       *pWords;
 
 //GTK events
 void on_formRealized();
+void on_copyClipboard();
 void on_propChanged();
 void on_newSeed();  //I hate how this needs to be handled separately
 
