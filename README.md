@@ -1,37 +1,39 @@
+# Phrases
+A work in progress for a passphrase generator, mainly as GTK3 practice.
+
+## Dependencies
+* [GTK3](https://github.com/GNOME/gtk)
+* [Easyargs](https://github.com/gouwsxander/easy-args)
+
+## Basic usage
+First, you need to either create, or download a pre-existing dicationary. For development I use [words_alpha.txt](https://github.com/dwyl/english-words), but you can use your own. The only requirement is that your dictionary is in plain text and each word is spearated by a newline (windows or unix).
+Place the dictionary file into the same directory with your cli exectuable, and name it words_alpha.txt (or use the dict argument for any other filename).
+
+### CLI-usage
+1. As simple as executing the CLI tool. Default values for all arguments will be assumed.
+2. A list of all the optional args:
+|   Flag  |     Default     |                        Description                            |
+| ------- |:---------------:|:-------------------------------------------------------------:|
+| -s      | <RANDOM>        | Seed, Any ASCII string                                        |
+| -a      | words_alpha.txt | Dictionary, Path to dictionary file                           |
+| -d      | <NONE>          | Delimiter, ASCII character or string to use as delimiter      |
+| -n      | 4               | Words, Number of words in phrase                              |
+| -u      | 1               | Case, Which letter(s) to capitalize (0:None, 1:First, 2:All)  |
+
+### GUI-usage
+1. Ensure both the CLI and GUI executables are in the same directory, or that the CLI is added to your #PATH (TODO).
+2. Execute the GUI tool.
+3. Tweak any parameters on the right, the passphrase will update automatically. Insert any extra characters to the password field manually if needed.
+4. Highlight the passphrase and copy it. Or use the `Copy to clipboard` button
+
 # TODO:
-## Flag driven pipeline:
-Instead of processing all conditions through a stack of if-statements, do a bitmask for each process, and iterate through a function pointer table handling each situation.
-Example:
-```
-typedef void (*func)(char*str);  //Process type template
 
-void Delimiter(cjar*s);          //Prototypes
-void Uppercase(char*s);
-
-enum{
-  DELIM = 1 <<0,
-  UPPER = 1 <<1
-  //etc...
-};
-
-func processors[] ={
-  Delimiter,
-  Uppercase
-  //etc...
-}
-
-void Delimiter(char *s){
-  //Modify delimiter
-}
-
-void Uppercase(char *s){
-  //Capitalize words
-}
-
-void ProcessWord(char *str, unsigned procMask){
-  for(size_t i=0; i<sizeof(processors)/sizeof(processors[0]);i++)
-    if(procMask &(1<<i))
-      processors[i](str);
-}
-```
-## The whole GUI app
+* Something more random than `rand()` would be more secure
+* Bit-flag based handling for CLI args for better scalability (check `cli/README.md`)
+* Add special character support
+    * List of custom characters?
+    * As prefix, suffix, or randomly inserted
+* Add numeric support
+    * Min/Max number size
+    * As prefix, suffix, or randomly inserted
+* Min/Max word length
