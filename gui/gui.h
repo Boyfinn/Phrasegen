@@ -14,28 +14,35 @@
 
 #define DEFAULTDICTIONARY "words_alpha.txt"
 
-const char *pDelims[] = {"", "_", "-"};
+const char *pDelims[] = {"NONE", "_", "-", " "};
+
+typedef enum {
+    ARG_UINT,
+    ARG_UCHR,
+    ARG_STRN
+} arg_type;
 
 typedef struct {
     const gchar *pFlag;
-    const gchar *pFormat;
+    arg_type    type;
     void        *pValue;
 } Arg;
 
 
 //Prop vars TODO: avoid namespace pollution by wrapping into a struct maybe?
-const char      *cCapital;
+unsigned char   cCapital;
 const char      *cDelim;
 char            *sDict;
 unsigned int    uSeed;
 unsigned char   cWords;
 
 Arg paramArgs[] = {
-    {"-s", "%u",    &uSeed},
-    {"-a", "%s",    &sDict},
-    {"-d", "%s",    &cDelim},
-    {"-n", "%hhu",  &cWords},
-    { NULL , NULL, NULL}
+    {"-u",ARG_UCHR,     &cCapital},
+    {"-s",ARG_UINT,     &uSeed},
+    {"-a",ARG_STRN,     &sDict},
+    {"-d",ARG_STRN,     &cDelim},
+    {"-n",ARG_UCHR,     &cWords},
+    { NULL }
 };
 
 //TODO: DO a macro builder thingy or something for these

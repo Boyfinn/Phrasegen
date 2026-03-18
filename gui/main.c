@@ -31,7 +31,7 @@ int main(int argc, char* argv[])
 
 void on_propChanged()
 {
-    //cCapital =  (unsigned char)gtk_combo_box_get_active(GTK_COMBO_BOX(pCapital));     //cCapital is an unsigned char
+    cCapital =  gtk_combo_box_get_active(GTK_COMBO_BOX(pCapital));     //cCapital is an unsigned char
     cDelim =    pDelims[gtk_combo_box_get_active(GTK_COMBO_BOX(pDelim))];
     sDict =     getDictPath(sDict);
     cWords =    gtk_spin_button_get_value(GTK_SPIN_BUTTON(pWords));
@@ -52,7 +52,7 @@ void buildArgs()
     /*if(!sDict)
         sDict = DEFAULTDICTIONARY;*/    //already fixed in entry
     printf("----ARGS----\n");
-    printf("cCapital: %s\n", cCapital);
+    printf("cCapital: %i\n", cCapital);
     printf("cDelim:   %s\n", cDelim);
     printf("sDict:    %s\n", sDict);
     printf("uSeed:    %u\n", uSeed);
@@ -62,9 +62,23 @@ void buildArgs()
     GPtrArray *argv = g_ptr_array_new_with_free_func(g_free);   //Didn't know this existed'
     g_ptr_array_add(argv, g_strdup("comtool"));
 
-    for (int i = 0; paramArgs[i].pFlag != NULL; i++) {
-        g_ptr_array_add(argv, g_strdup(paramArgs[i].pFlag));
-        g_ptr_array_add(argv, g_strdup_printf(paramArgs[i].pFormat, paramArgs[i].pValue));
+for (int i = 0; paramArgs[i].pFlag != NULL; i++) {
+    g_ptr_array_add(argv, g_strdup(paramArgs[i].pFlag));
+    switch (paramArgs[i].type) {
+
+            case ARG_UINT:{
+                g_ptr_array_add(argv, g_strdup_printf("%u",   *(unsigned int  *)paramArgs[i].pValue));
+                break;
+            }
+            case ARG_UCHR:{
+                g_ptr_array_add(argv, g_strdup_printf("%hhu", *(unsigned char *)paramArgs[i].pValue));
+                break;
+            }
+            case ARG_STRN:{
+                g_ptr_array_add(argv, g_strdup(*(char **)paramArgs[i].pValue));
+                break;
+            }
+        }
     }
 
     g_ptr_array_add(argv, NULL);
@@ -72,12 +86,11 @@ void buildArgs()
     g_ptr_array_free(argv, TRUE);   //TODO: Maybe handle after... idk
 }
 
-void genPassword(gchar **argv)
-{
-    /*
+void genPassword(gchar **argv) {
+/*
         for (int i = 0; argv[i] != NULL; i++)
         printf("argv[%d]: %s\n", i, argv[i]);
-    */
+*/
     gchar * output =        NULL;
     gchar * error =         NULL;
     gint    exitStatus =    0;
@@ -88,8 +101,7 @@ void genPassword(gchar **argv)
     gtk_entry_set_text(GTK_ENTRY(pOutputField),output);
 }
 
-char* getDictPath(char *oldDict)
-{
+char* getDictPath(char *oldDict) {
     if (oldDict)
         g_free(oldDict);
     return gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(pDict));

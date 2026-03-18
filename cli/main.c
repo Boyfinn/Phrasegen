@@ -1,4 +1,5 @@
 #include "cli.h"
+#include <ctype.h>
 
 int main(int argc, char* argv[])
 {
@@ -80,16 +81,37 @@ void GeneratePhrase(int words, FILE* file)
         while (len > 0 && (buffer[len-1] == '\n' || buffer[len-1] == '\r' || buffer[len-1] == ' '))
             buffer[--len] = '\0';
 
-        if(i <words-1)  //Replace with delimiter char
+        if(i <words-1 && strcmp(nArgs.delim, "NONE"))  //Replace with delimiter char
         {
             strcat(buffer, nArgs.delim);
             //https://stackoverflow.com/a/28462221/10035529
             //buffer[strcspn(buffer, "\n")] = '_';
         }
-        if(nArgs.upper)
+        switch(nArgs.upper)
+        {
+            case 0:{ //lol
+                break;
+            }
+
+            case 1:{ //first letter
+                buffer[0] = toupper(buffer[0]);
+                break;
+            }
+
+            case 2:{ //all
+                int j=0;
+                while(buffer[j])
+                {
+                    buffer[j] = toupper(buffer[j]);
+
+                }
+                break;
+            }
+        }
+        /*if(nArgs.upper)
         {
             buffer[0] = toupper(buffer[0]);
-        }
+        }*/
         strcat(passPhrase,buffer);
     }
     printf("%s\n", passPhrase);
