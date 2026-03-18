@@ -13,14 +13,30 @@
 #include <time.h>
 
 //TODO: DO a macro builder thingy or something for these
-GtkWidget   *pWindow;
-GtkWidget   *pOutputField;
-GtkBuilder  *pBuilder;
+GtkWidget       *pWindow;
+GtkWidget       *pOutputField;
+GtkBuilder      *pBuilder;
 
-unsigned int uSeed;
+//Prop widgets
+GtkWidget       *pCapital;
+GtkWidget       *pDelim;
+GtkWidget       *pDict;
+GtkWidget       *pSeed;
+GtkWidget       *pWords;
 
-void on_newpass_click ();
-void on_newseed_click ();
-void on_dict_set();
+//Prop vars TODO: avoid namespace pollution by wrapping into a struct maybe?
+unsigned char   cCapital;
+unsigned char   cDelim;
+char*           sDict;
+unsigned int    uSeed;
+unsigned char   cWords;
+
+//GTK events
+void on_propChanged();
+void on_newSeed();  //I hate how this needs to be handled separately
+
+//Funcs&methods
+void buildArgs();
+char* getDictPath(char *oldDict);
 
 #endif
