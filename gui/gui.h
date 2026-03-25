@@ -3,16 +3,18 @@
 
 #include <stdlib.h>
 #include <sys/types.h>
-#include <signal.h>
 #include <unistd.h>
 #include <string.h>
 #include <gtk/gtk.h>
 #include <gtk/gtkx.h>
-#include <math.h>
-#include <ctype.h>
 #include <time.h>
 
-#define DEFAULTDICTIONARY "res/words_alpha.txt"
+#ifndef ASSET_PATH
+#define ASSET_PATH "res/"
+#endif
+
+#define DEFAULTDICTIONARY   ASSET_PATH "words_alpha.txt"
+#define GUILAYOUT           ASSET_PATH "gtkForm.glade"
 
 const char *pDelims[] = {"NONE", "_", "-", " "};
 

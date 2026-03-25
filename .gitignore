@@ -73,3 +73,6 @@ words_alpha.txt
 .kateproject
 .kateproject.build
 *.glade#
+
+# Tools
+debs/

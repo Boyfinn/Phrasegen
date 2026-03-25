@@ -6,9 +6,15 @@
 #include <string.h>
 #include <time.h>
 
+#ifndef ASSET_PATH
+#define ASSET_PATH "res/"
+#endif
+
+#define DEFAULT_PATH ASSET_PATH"words_alpha.txt"
+
 #define OPTIONAL_ARGS \
     OPTIONAL_STRING_ARG(seed, "RANDOM", "-s", "seed", "ASCII seed string.")\
-    OPTIONAL_STRING_ARG(dict, "res/words_alpha.txt", "-a", "dictionary", "Text file containing words separated by newline.")\
+    OPTIONAL_STRING_ARG(dict, DEFAULT_PATH, "-a", "dictionary", "Text file containing words separated by newline.")\
     OPTIONAL_STRING_ARG(delim, "NONE", "-d", "delimiter", "Character or string to be used as delimiter.")\
     OPTIONAL_UINT_ARG(words, 4, "-n", "words", "Number of words to generate.")\
     OPTIONAL_UINT_ARG(upper,1,"-u","case","Letters to capitalize (0:None, 1:First, 2:All).")\

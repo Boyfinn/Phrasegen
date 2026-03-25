@@ -10,12 +10,14 @@ BUILD_DIR = build
 GTK_CFLAGS := $(shell pkg-config --cflags gtk+-3.0)
 GTK_LIBS   := $(shell pkg-config --libs gtk+-3.0)
 
+INCLUDES = -IEasyArgs
 COMMON_FLAGS = -Wall -Wextra -MMD -MP
 DEBUG_FLAGS  = -g
 RELEASE_FLAGS = -O2
+ASSET_PATH ?= res/
 
 CFLAGS ?= $(COMMON_FLAGS) $(DEBUG_FLAGS)
-CFLAGS += -IEasyArgs
+# CFLAGS += -IEasyArgs
 
 CLI_SRCS = $(wildcard $(CLI_DIR)/*.c)
 GUI_SRCS = $(wildcard $(GUI_DIR)/*.c)
@@ -28,16 +30,16 @@ DEPS = $(CLI_OBJS:.o=.d) $(GUI_OBJS:.o=.d)
 all: $(BUILD_DIR)/$(CLI_TARGET) $(BUILD_DIR)/$(GUI_TARGET)
 
 release:
-	$(MAKE) CFLAGS="$(COMMON_FLAGS) $(RELEASE_FLAGS)" all
+	$(MAKE) CFLAGS="$(COMMON_FLAGS) $(RELEASE_FLAGS) -DASSET_PATH='\"$(ASSET_PATH)\"'" all	#ASsets
 
 $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)
 
 $(BUILD_DIR)/cli_%.o: $(CLI_DIR)/%.c | $(BUILD_DIR)
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(BUILD_DIR)/gui_%.o: $(GUI_DIR)/%.c | $(BUILD_DIR)
-	$(CC) $(CFLAGS) $(GTK_CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(INCLUDES) $(GTK_CFLAGS) -c $< -o $@
 
 $(BUILD_DIR)/res: res | $(BUILD_DIR)
 	cp -r res $(BUILD_DIR)/

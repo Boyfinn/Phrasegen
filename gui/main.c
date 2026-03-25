@@ -3,7 +3,7 @@
 
 int main(int argc, char* argv[]) {
     gtk_init(&argc, &argv);
-    pBuilder = gtk_builder_new_from_file("res/gtkForm.glade");
+    pBuilder = gtk_builder_new_from_file(GUILAYOUT);
     pWindow = GTK_WIDGET(gtk_builder_get_object(pBuilder, "frm_main"));
     g_signal_connect(pWindow, "destroy", G_CALLBACK(gtk_main_quit),NULL);
     gtk_builder_connect_signals(pBuilder, NULL);
