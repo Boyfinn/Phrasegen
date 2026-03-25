@@ -41,3 +41,5 @@ Place your dictionary into the `/res` directory, and name it words_alpha.txt (or
     * Min/Max number size
     * As prefix, suffix, or randomly inserted
 * Min/Max word length
+* Installer/Package (.deb, .rpm, etc...)
+    * Handle all the path stuff in installer
